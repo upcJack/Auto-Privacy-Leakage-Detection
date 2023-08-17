@@ -146,6 +146,7 @@ def preprocess_files_and_save(directory, output_file, preprocess_log):
                         for shape in slide.Shapes:
                             if hasattr(shape, 'HasTextFrame') and shape.HasTextFrame: # 先检查 shape 对象是否具有 HasTextFrame 属性，再检查该属性的值是否为 True
                                 text += shape.TextFrame.TextRange.Text + "\n"
+                    presentation.Close() #只是关闭ppt里面的内容，但是不关闭ppt本身
                     cleaned_text = clean_text(text)
                     output.write(cleaned_text + '\n')
                     log.write("\nPreprocess " + file + " done \n") # 打印日志
@@ -293,6 +294,9 @@ def preprocess_files_and_save(directory, output_file, preprocess_log):
                                 output.write(cleaned_email_text + '\n')
                                 log.write("Preprocess Email Text done\n")
                         log.write("Preprocess " + file + " done\n")
+
+                elif file_path.endswith('.zip'):
+                    pass
 
                 # 最后处理没有后缀的文件
                 elif file_path.endswith(''):
